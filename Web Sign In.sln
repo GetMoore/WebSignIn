@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31112.23
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web Sign In", "Web Sign In\Web Sign In.csproj", "{F514368F-2D0D-4F5E-9D02-7070D8A15488}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F514368F-2D0D-4F5E-9D02-7070D8A15488}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F514368F-2D0D-4F5E-9D02-7070D8A15488}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F514368F-2D0D-4F5E-9D02-7070D8A15488}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F514368F-2D0D-4F5E-9D02-7070D8A15488}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6FB016EC-EF45-46D6-B394-8EDAEE7D575A}
+	EndGlobalSection
+EndGlobal
