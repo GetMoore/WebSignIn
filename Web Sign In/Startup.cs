@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Web_Sign_In.Services;
 
 namespace Web_Sign_In
 {
@@ -24,6 +25,7 @@ namespace Web_Sign_In
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IPainScaleService, PainScaleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

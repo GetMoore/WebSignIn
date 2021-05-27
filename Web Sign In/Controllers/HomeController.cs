@@ -6,21 +6,27 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Web_Sign_In.Models;
+using Web_Sign_In.Services;
+using Web_Sign_In.ViewModels;
 
 namespace Web_Sign_In.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IPainScaleService _painScaleService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IPainScaleService painScaleService)
         {
             _logger = logger;
+            _painScaleService = painScaleService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var vm = new SignInSheetViewModel();
+            vm.SetPainScales(_painScaleService.BuildPainScaleList(10));
+            return View(vm);
         }
 
         public IActionResult Privacy()
