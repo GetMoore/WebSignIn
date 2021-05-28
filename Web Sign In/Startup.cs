@@ -25,6 +25,7 @@ namespace Web_Sign_In
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
             services.AddScoped<IPainScaleService, PainScaleService>();
         }
 

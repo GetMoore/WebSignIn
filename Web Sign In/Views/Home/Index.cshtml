@@ -1,9 +1,17 @@
 ﻿@model SignInSheetViewModel
 
+<a> Select the numbher that best describes your pain or condition </a>
+@Html.DropDownListFor(
+    m => m.SelectedPainScale,
+    new SelectList(Model.PainScales/*, "Id", "Name"*/),
+    "Select Pain Scale",
+    new { @class = "form-control" }
+)
+
 <div>
     <canvas id="myCanvas" width="300" height="300"></canvas>
 </div>
 
-<button id="clearBtn" type="button" class="btn-danger" > Clear </button>
+<button id="clearBtn" type="button" class="btn-danger"> Clear </button>
 <button id="submitBtn" type="button" class="btn-primary"> Submit </button>
 
