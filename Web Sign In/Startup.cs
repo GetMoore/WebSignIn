@@ -27,6 +27,7 @@ namespace Web_Sign_In
             services.AddControllersWithViews();
 
             services.AddScoped<IPainScaleService, PainScaleService>();
+            services.AddScoped<IFileService, TestFileService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

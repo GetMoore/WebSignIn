@@ -3,6 +3,47 @@
 
 // Write your JavaScript code.
 
+//var doc = new jsPDF();
+
+
+
+//doc.setFontSize(40);
+//doc.text(35, 25, "Octonyan loves jsPDF");
+
+$("#submitBtn").click(function () {
+    submitForm();
+});
+
+function submitForm() {
+
+    //Get the image from the canvas
+    let canvas = document.getElementById('myCanvas');
+    //let image = ctx.getImageData(0,0,300,300);
+
+    let image = canvas.toDataURL("image/png");
+
+    doc = new jsPDF({
+        unit: 'px',
+        format: 'a4'
+    });
+
+    
+
+    doc.addImage(image, 'PNG', 15, 40, 227, 227, null, 'FAST');
+
+    var base64pdf = btoa(doc.output());
+
+    $.post('File/UploadFile',
+        {
+            fileAsBase64: base64pdf
+        }).fail(function () {
+
+        }).done(function () {
+
+        });
+}
+
+
 function setupImage() {
     let canvas = document.getElementById('myCanvas');
     let ctx = canvas.getContext('2d');
