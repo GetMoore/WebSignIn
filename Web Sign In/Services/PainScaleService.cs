@@ -15,7 +15,7 @@ namespace Web_Sign_In.Services
         public List<string> BuildPainScaleList(int max)
         {
             var returnList = new List<string>();
-            for (int i = 0; i < max; i++)
+            for (int i = 0; i <= max; i++)
                 returnList.Add(i.ToString());
             return returnList;
         }
