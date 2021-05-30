@@ -23,6 +23,11 @@
     @Html.TextBoxFor(m => m.PatientName, new { @class = "form-control" })
 </div>
 
+<div class="row">
+    <a class="col-2">Signature</a>
+    <canvas style="background-color:grey" class="col-10" id="signatureCanvas" height="25" ></canvas>
+</div>
+
 <div>
     <button id="submitBtn" type="button" class="btn-primary"> Submit </button>
     <button id="clearBtn" type="button" class="btn-danger"> Clear </button>

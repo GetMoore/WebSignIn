@@ -15,7 +15,7 @@ $("#submitBtn").click(function () {
 });
 
 function getOffsetForCentering(doc, text) {
-    console.log(doc);
+    //console.log(doc);
     //let width = doc.internal.pageSize.getWidth();
     //console.log(width);
     return (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth(text) * doc.internal.getFontSize() / 2);
@@ -38,7 +38,6 @@ function addTextToDocument2(doc, text, xValue, yValue, centerText) {
 
     doc.text(xValue, yValue, text);
 }
-
 
 function getCurrentTimeString() {
 
@@ -121,30 +120,36 @@ function setupImage() {
 
 $("#clearBtn").click(function () {
     setupImage();
+
+    clearCanvas('signatureCanvas');
+
     $("#SelectedPainScale").val($("#target option:first").val());
     $('#PatientName').val('');
     $('#Comments').val('');
 });
 
-setupImage();
+function clearCanvas(canvasId) {
+    let canvas = document.getElementById(canvasId);
+    let context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+}
 
-let canvas = document.getElementById('myCanvas');
-let ctx = canvas.getContext('2d');
+setupImage();
 
 window.addEventListener('load', () => {
 
-    //resize(); // Resizes the canvas once the window loads
-    canvas.addEventListener('mousedown', startPainting);
-    canvas.addEventListener('mouseup', stopPainting);
-    canvas.addEventListener('mousemove', sketch);
-    //window.addEventListener('resize', resize);
-});
+    let areasOfConcernCanvas = document.getElementById('myCanvas');
+    let signatureCanvas = document.getElementById('signatureCanvas');
 
-// Resizes the canvas to the available size of the window.
-function resize() {
-    ctx.canvas.width = window.innerWidth;
-    ctx.canvas.height = window.innerHeight;
-}
+    areasOfConcernCanvas.addEventListener('mousedown', startPainting);
+    areasOfConcernCanvas.addEventListener('mouseup', stopPainting);
+    areasOfConcernCanvas.addEventListener('mousemove', sketch);
+
+    signatureCanvas.addEventListener('mousedown', startPainting);
+    signatureCanvas.addEventListener('mouseup', stopPainting);
+    signatureCanvas.addEventListener('mousemove', sketch);
+
+});
 
 // Stores the initial position of the cursor
 let coord = {x: 0, y: 0 };
@@ -157,8 +162,13 @@ let paint = false;
 // an event e is triggered to the coordinates where
 // the said event is triggered.
 function getPosition(event) {
-    coord.x = event.clientX - canvas.offsetLeft;
-    coord.y = event.clientY - canvas.offsetTop;
+    //console.log(event);
+    //console.log(event.target.offsetLeft);
+    //coord.x = event.clientX - canvas.offsetLeft;
+    //coord.y = event.clientY - canvas.offsetTop;
+
+    coord.x = event.clientX - event.target.offsetLeft;
+    coord.y = event.clientY - event.target.offsetTop;
 }
 
 // The following functions toggle the flag to start
@@ -171,9 +181,8 @@ function stopPainting() {
     paint = false;
 }
 
-function coordIsValid() {
-    let canvas = document.getElementById('myCanvas');
-
+function coordIsValid(event) {
+    let canvas = document.getElementById(event.target.id);
     if
     (
         coord.x <= 0 ||
@@ -182,16 +191,19 @@ function coordIsValid() {
         coord.y == canvas.height - 2
     ) return false;
 
-    console.log(canvas.width, canvas.height, coord);
+    //console.log(canvas.width, canvas.height, coord);
 }
 
 function sketch(event) {
     if (!paint) return;
 
-    if (coordIsValid() == false) {
-    stopPainting();
+    if (coordIsValid(event) == false) {
+    stopPainting(event);
         return;
     }
+
+    let canvas = document.getElementById(event.target.id);
+    let ctx = canvas.getContext('2d');
 
     ctx.beginPath();
 
@@ -207,8 +219,6 @@ function sketch(event) {
     // moves to this coordinate
     ctx.moveTo(coord.x, coord.y);
 
-
-
     // The position of the cursor
     // gets updated as we move the
     // mouse around.
@@ -221,4 +231,3 @@ function sketch(event) {
     // Draws the line.
     ctx.stroke();
 }
-
