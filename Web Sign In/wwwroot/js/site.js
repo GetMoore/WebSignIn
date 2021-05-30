@@ -3,21 +3,12 @@
 
 // Write your JavaScript code.
 
-//var doc = new jsPDF();
-
-
-
-//doc.setFontSize(40);
-//doc.text(35, 25, "Octonyan loves jsPDF");
 
 $("#submitBtn").click(function () {
     submitForm();
 });
 
 function getOffsetForCentering(doc, text) {
-    //console.log(doc);
-    //let width = doc.internal.pageSize.getWidth();
-    //console.log(width);
     return (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth(text) * doc.internal.getFontSize() / 2);
 }
 
@@ -155,18 +146,12 @@ window.addEventListener('load', () => {
 let coord = {x: 0, y: 0 };
 
 // This is the flag that we are going to use to
-// trigger drawing
 let paint = false;
 
 // Updates the coordianates of the cursor when
 // an event e is triggered to the coordinates where
 // the said event is triggered.
 function getPosition(event) {
-    //console.log(event);
-    //console.log(event.target.offsetLeft);
-    //coord.x = event.clientX - canvas.offsetLeft;
-    //coord.y = event.clientY - canvas.offsetTop;
-
     coord.x = event.clientX - event.target.offsetLeft;
     coord.y = event.clientY - event.target.offsetTop;
 }
