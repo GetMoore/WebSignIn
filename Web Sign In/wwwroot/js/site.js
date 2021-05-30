@@ -52,8 +52,12 @@ function submitForm() {
     //https://artskydj.github.io/jsPDF/docs/jsPDF.html
 
     //Get the image from the canvas
-    let canvas = document.getElementById('myCanvas');
-    let image = canvas.toDataURL("image/png");
+    let areaOfConcernCanvas = document.getElementById('myCanvas');
+    let areaOfConcernImage = areaOfConcernCanvas.toDataURL("image/png");
+
+    let signatureCanvas = document.getElementById('signatureCanvas');
+    let signatureImage = signatureCanvas.toDataURL("image/png");
+
     let patientName = $("#PatientName").val();
     let selectedPainScale = $("#SelectedPainScale").val();
     let comments = $("#Comments").val();
@@ -69,10 +73,9 @@ function submitForm() {
     addTextToDocument(doc, 'Dr. Debbie Moore DC LAc      601-749-4939', 40, true);
     addTextToDocument(doc, currentDateTimeString, 50, true);
 
-
     doc.setFontType('normal')
     doc.rect(20, 68, 230, 227)
-    doc.addImage(image, 'PNG', 22, 70, 227, 227, null, 'FAST');
+    doc.addImage(areaOfConcernImage, 'PNG', 22, 70, 227, 227, null, 'FAST');
     addTextToDocument2(doc, 'Areas of Pain or Concern', 85, 85, false);
 
     doc.rect(250, 68, 150, 227);
@@ -81,7 +84,10 @@ function submitForm() {
     let commentText = doc.splitTextToSize('Comments: ' + comments, 140);
     addTextToDocument2(doc, commentText, 255, 100, false);
 
-    addTextToDocument(doc, 'Patient Signature', 310, false);
+    addTextToDocument(doc, 'Patient Signature: ', 325, false);
+
+    doc.addImage(signatureImage, 'PNG', 100, 310, 227, 25, null, 'FAST');
+    doc.line(100, 340, 250, 340) // horizontal line
 
     var base64pdf = btoa(doc.output());
 
