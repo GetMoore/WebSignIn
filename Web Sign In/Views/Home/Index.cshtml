@@ -1,6 +1,6 @@
 ﻿@model SignInSheetViewModel
 
-<a> Select the numbher that best describes your pain or condition </a>
+<a> Select the number that best describes your pain or condition </a>
 @Html.DropDownListFor(
     m => m.SelectedPainScale,
     new SelectList(Model.PainScales/*, "Id", "Name"*/),
@@ -10,6 +10,11 @@
 
 <div>
     <canvas id="myCanvas" width="300" height="300"></canvas>
+</div>
+
+<div>
+    @Html.LabelFor(m => m.PatientName)
+    @Html.TextAreaFor(m => m.PatientName)
 </div>
 
 <button id="clearBtn" type="button" class="btn-danger"> Clear </button>

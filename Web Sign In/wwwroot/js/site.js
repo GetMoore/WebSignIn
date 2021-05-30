@@ -27,9 +27,18 @@ function submitForm() {
         format: 'a4'
     });
 
-    
+    doc.text(20, 20, 'Moore Chiropractic Clinic')
+    doc.text(20, 30, 'Sign-In Form')
+    doc.text(20, 40, 'Dr. Debbie Moore DC LAc      601-749-4939')
 
-    doc.addImage(image, 'PNG', 15, 40, 227, 227, null, 'FAST');
+    let painScaleText = 'Pain Level: ' + $("#SelectedPainScale").val();
+    doc.text(20, 50, painScaleText)
+
+    let nameText = 'Patient Signature: ' + $("#PatientName").val();
+    let dateText = 'Date: ' + '';
+    doc.text(20, 60, nameText);
+
+    doc.addImage(image, 'PNG', 20, 70, 227, 227, null, 'FAST');
 
     var base64pdf = btoa(doc.output());
 

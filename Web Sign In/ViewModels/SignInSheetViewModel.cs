@@ -16,6 +16,7 @@ namespace Web_Sign_In.ViewModels
 
         public List<string> PainScales { get; set; }
         public string SelectedPainScale { get; set; }
+        public string PatientName { get; set; }
         
     }
 }
