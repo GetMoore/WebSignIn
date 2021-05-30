@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +17,8 @@ namespace Web_Sign_In.ViewModels
 
         public List<string> PainScales { get; set; }
         public string SelectedPainScale { get; set; }
+
+        [Display(Name = "Name")]
         public string PatientName { get; set; }
         public string Comments { get; set; }
     }

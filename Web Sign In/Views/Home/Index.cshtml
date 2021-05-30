@@ -1,5 +1,10 @@
 ﻿@model SignInSheetViewModel
 
+<a> Areas of Pain or Concern </a>
+<div>
+    <canvas id="myCanvas" width="300" height="300"></canvas>
+</div>
+
 <a> Select the number that best describes your pain or condition </a>
 @Html.DropDownListFor(
     m => m.SelectedPainScale,
@@ -9,21 +14,18 @@
 )
 
 <div>
-    <canvas id="myCanvas" width="300" height="300"></canvas>
+    @Html.LabelFor(m => m.Comments)
+    @Html.TextAreaFor(m => m.Comments, new { @class = "form-control" })
 </div>
 
 <div>
     @Html.LabelFor(m => m.PatientName)
-    @Html.TextBoxFor(m => m.PatientName)
+    @Html.TextBoxFor(m => m.PatientName, new { @class = "form-control" })
 </div>
 
 <div>
-    @Html.LabelFor(m => m.Comments)
-    @Html.TextAreaFor(m => m.Comments)
+    <button id="submitBtn" type="button" class="btn-primary"> Submit </button>
+    <button id="clearBtn" type="button" class="btn-danger"> Clear </button>
 </div>
 
-
-
-<button id="clearBtn" type="button" class="btn-danger"> Clear </button>
-<button id="submitBtn" type="button" class="btn-primary"> Submit </button>
 

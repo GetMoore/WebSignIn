@@ -88,7 +88,7 @@ function submitForm() {
     doc.rect(250, 68, 150, 227);
 
     addTextToDocument2(doc, 'Pain Level: ' + selectedPainScale, 255, 80, false);
-    let commentText = doc.splitTextToSize('Comments:' + comments, 140);
+    let commentText = doc.splitTextToSize('Comments: ' + comments, 140);
     addTextToDocument2(doc, commentText, 255, 100, false);
 
     addTextToDocument(doc, 'Patient Signature', 310, false);
