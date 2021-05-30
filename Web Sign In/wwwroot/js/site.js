@@ -14,44 +14,97 @@ $("#submitBtn").click(function () {
     submitForm();
 });
 
+function getOffsetForCentering(doc, text) {
+    console.log(doc);
+    //let width = doc.internal.pageSize.getWidth();
+    //console.log(width);
+    return (doc.internal.pageSize.width / 2) - (doc.getStringUnitWidth(text) * doc.internal.getFontSize() / 2);
+}
+
+function addTextToDocument(doc, text, yValue, centerText) {
+
+    let alignValue = 'left';
+    let offset = 20;
+
+    if (centerText === true)
+    {
+        offset = getOffsetForCentering(doc, text);
+        alignValue = 'center';
+    }
+    doc.text(offset, yValue, text, { align: alignValue });
+}
+
+function addTextToDocument2(doc, text, xValue, yValue, centerText) {
+
+    doc.text(xValue, yValue, text);
+}
+
+
+function getCurrentTimeString() {
+
+    let currentDate = new Date();
+    let day = currentDate.getDate();
+    let month = currentDate.getMonth() + 1;
+    let year = currentDate.getFullYear();
+    let hour = currentDate.getHours();
+    let minutes = currentDate.getMinutes();
+    let timeOfDay = '';
+    if (hour > 12)
+        timeOfDay = 'PM';
+    else
+        timeOfDay = 'AM';
+
+    return month + '/' + day + '/' + year + ' ' + (hour % 12) + ':' + minutes + ' ' + timeOfDay;
+}
+
 function submitForm() {
+
+    //https://artskydj.github.io/jsPDF/docs/jsPDF.html
 
     //Get the image from the canvas
     let canvas = document.getElementById('myCanvas');
-    //let image = ctx.getImageData(0,0,300,300);
-
     let image = canvas.toDataURL("image/png");
+    let patientName = $("#PatientName").val();
+    let selectedPainScale = $("#SelectedPainScale").val();
+    let comments = $("#Comments").val();
+    let currentDateTimeString = getCurrentTimeString();
 
-    doc = new jsPDF({
-        unit: 'px',
-        format: 'a4'
-    });
+    //Create the doc
+    doc = new jsPDF({unit: 'px', format: 'a4' });
 
-    doc.text(20, 20, 'Moore Chiropractic Clinic')
-    doc.text(20, 30, 'Sign-In Form')
-    doc.text(20, 40, 'Dr. Debbie Moore DC LAc      601-749-4939')
+    doc.setFontSize(12);
+    doc.setFontType('bold')
+    addTextToDocument(doc, 'MOORE CHIROPRACTIC CLINIC', 20, true);
+    addTextToDocument(doc, 'Sign-In Form', 30, true);
+    addTextToDocument(doc, 'Dr. Debbie Moore DC LAc      601-749-4939', 40, true);
+    addTextToDocument(doc, currentDateTimeString, 50, true);
 
-    let painScaleText = 'Pain Level: ' + $("#SelectedPainScale").val();
-    doc.text(20, 50, painScaleText)
 
-    let nameText = 'Patient Signature: ' + $("#PatientName").val();
-    let dateText = 'Date: ' + '';
-    doc.text(20, 60, nameText);
+    doc.setFontType('normal')
+    doc.rect(20, 68, 230, 227)
+    doc.addImage(image, 'PNG', 22, 70, 227, 227, null, 'FAST');
+    addTextToDocument2(doc, 'Areas of Pain or Concern', 85, 85, false);
 
-    doc.addImage(image, 'PNG', 20, 70, 227, 227, null, 'FAST');
+    doc.rect(250, 68, 150, 227);
+
+    addTextToDocument2(doc, 'Pain Level: ' + selectedPainScale, 255, 80, false);
+    let commentText = doc.splitTextToSize('Comments:' + comments, 140);
+    addTextToDocument2(doc, commentText, 255, 100, false);
+
+    addTextToDocument(doc, 'Patient Signature', 310, false);
 
     var base64pdf = btoa(doc.output());
 
     $.post('File/UploadFile',
         {
-            fileAsBase64: base64pdf
+            fileAsBase64: base64pdf,
+            patientName: patientName
         }).fail(function () {
 
         }).done(function () {
 
         });
 }
-
 
 function setupImage() {
     let canvas = document.getElementById('myCanvas');
@@ -69,6 +122,8 @@ function setupImage() {
 $("#clearBtn").click(function () {
     setupImage();
     $("#SelectedPainScale").val($("#target option:first").val());
+    $('#PatientName').val('');
+    $('#Comments').val('');
 });
 
 setupImage();

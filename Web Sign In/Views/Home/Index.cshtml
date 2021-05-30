@@ -14,8 +14,15 @@
 
 <div>
     @Html.LabelFor(m => m.PatientName)
-    @Html.TextAreaFor(m => m.PatientName)
+    @Html.TextBoxFor(m => m.PatientName)
 </div>
+
+<div>
+    @Html.LabelFor(m => m.Comments)
+    @Html.TextAreaFor(m => m.Comments)
+</div>
+
+
 
 <button id="clearBtn" type="button" class="btn-danger"> Clear </button>
 <button id="submitBtn" type="button" class="btn-primary"> Submit </button>

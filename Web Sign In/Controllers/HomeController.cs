@@ -16,6 +16,7 @@ namespace Web_Sign_In.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IPainScaleService _painScaleService;
 
+
         public HomeController(ILogger<HomeController> logger, IPainScaleService painScaleService)
         {
             _logger = logger;

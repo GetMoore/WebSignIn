@@ -8,9 +8,11 @@ namespace Web_Sign_In.Controllers
     public class FileController : Controller
     {
         private readonly IFileService _fileService;
-        public FileController(IFileService fileService)
+        private readonly INotificationService _notificationService;
+        public FileController(IFileService fileService, INotificationService notificationService)
         {
             _fileService = fileService;
+            _notificationService = notificationService;
         }
 
         public IActionResult Index()
@@ -19,11 +21,16 @@ namespace Web_Sign_In.Controllers
         }
 
         [HttpPost]
-        public IActionResult UploadFile(string fileAsBase64)
+        public IActionResult UploadFile(string fileAsBase64, string patientName)
         {
             var byteArray = Convert.FromBase64String(fileAsBase64);
             if (_fileService.SaveFile(byteArray))
+            {
+                var message = $"{patientName} has completed the sign in form.";
+                _notificationService.SendMessage(message);
                 return Ok();
+            }
+                
             return BadRequest();
         }
     }
